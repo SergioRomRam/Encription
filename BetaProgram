@@ -1,0 +1,269 @@
+%Encriptación
+%diccionary
+%minasc=97						"a"
+%maxasc=122						"z"
+%ascesp=164						"ñ"
+
+in=lower(input('Insert your text ','s'));        %in=input in chart format
+asc=sort(double(in));					%asc=in on ascii and sorted by the minimum to maximum 
+count=1;                                %count=counter
+asc(length(asc)+1)=999;					%a trash data in my array like a bit flag
+fre=zeros(27,1);                        %fre= frequency of repetition of my letters
+c=0;                                    %c= counter of frequency of letter variable 
+while(asc(count)<97)					%i am going to take out the spacebar and weird things like that
+	count=count+1;                      %we put the counter in the right place
+end                                     %and end the loop
+for(sse=1:1:26)                         %sse= to get the frequency of my first 26 letters
+	if (asc(count)==(sse+96))			%lets see if we have that letter
+		char(sse+96);                   %we print the letter that we are evaluating
+		while(asc(count)==(sse+96))		%lets counter the frequency of that letter
+			c=c+1;                      %counter of frequency
+			fre(sse)=c;                 %we save that data in an array with the frequency
+			count=count+1;              %lets try with the next letter
+        end                             %end of the while
+    end                                 %end of the if
+	c=0;                                %reset the counter of frequency
+end                                     %end of the for
+while(asc(count)<241)					%i am going to take out the spacebar and weird things like that
+	count=count+1;                      %we put the counter in the right place
+end                                     %and end the loop
+if (asc(count)==241)					%lets see if we have a ñ
+	while(asc(count)==241)				%we enter to the while to count the value of ñ
+		fre(27)=c+1;                    %we get the value of ñ
+		c=c+1;                          %counter of the frequency
+		count=count+1;                  %lets try with the next letter
+    end                                 %end of the while
+end
+while(asc(count)<999)					%i am going to take out the spacebar and weird things like that
+    count=count+1;                      %we put the counter in the right place
+end                                     %and end the loop
+                                        %end of the if
+if (asc(count)==999)					%we get the bit flag
+end                                     %end of the code
+a=fre(1);                               %We saved the frequency of each vocal
+e=fre(5);
+i=fre(9);
+o=fre(15);
+u=fre(21);
+voc=[a e i o u];                        %and we saved that in a new array
+voca=['a' 'e' 'i' 'o' 'u'];             %We create a paralel array with the name of each vocal
+switch (max(voc))                       %We will order them in pairs depending the frequency of the vocals 
+    case a
+        a=-2;
+    case e
+        e=-2;
+    case i
+        i=-2;
+    case o
+        o=-2;
+    case u
+        u=-2;
+end
+voc=[a e i o u];                        %We put the value of voc again, changing only 1 value (the greatest value)
+switch (max(voc))
+    case a
+        a=-2;
+    case e
+        e=-2;
+    case i
+        i=-2;
+    case o
+        o=-2;
+    case u
+        u=-2;
+end
+voc=[a e i o u];                        %We put the value of voc again, changing only 1 value (the second greatest value)
+switch (max(voc))
+    case a
+        a=-1;
+    case e
+        e=-1;
+    case i
+        i=-1;
+    case o
+        o=-1;
+    case u
+        u=-1;
+end
+voc=[a e i o u];
+switch (max(voc))                       %We put the value of voc again, changing only 1 value (the third greatest value)
+    case a
+        a=-1;
+    case e
+        e=-1;
+    case i
+        i=-1;
+    case o
+        o=-1;
+    case u
+        u=-1;
+end
+voc=[a e i o u];                        %We put the value of voc again, changing only 1 value (the forth greatest value)
+switch (max(voc))
+    case a
+        a=0;
+    case e
+        e=0;
+    case i
+        i=0;
+    case o
+        o=0;
+    case u
+        u=0;
+end
+voc=[a e i o u];                        %We put the value of voc again, changing only 1 value (the minimum value) this letter will not have a pair
+b=fre(2);                               %we repeat the process but, now with the consonant letters
+c=fre(3);
+d=fre(4);
+f=fre(6);
+g=fre(7);
+h=fre(8);
+j=fre(10);
+k=fre(11);
+l=fre(12);
+m=fre(13);
+n=fre(14);
+p=fre(16);
+q=fre(17);
+r=fre(18);
+s=fre(19);
+t=fre(20);
+v=fre(22);
+w=fre(23);
+x=fre(24);
+y=fre(25);
+z=fre(26);
+e=fre(27);
+con=[b c d f g h j k l m n e p q r s t v w x y z];
+cons=['b' 'c' 'd' 'f' 'g' 'h' 'j' 'k' 'l' 'm' 'n' 'ñ' 'p' 'q' 'r' 's' 't' 'v' 'w' 'x' 'y' 'z'];
+Valid=sort(con);                        %We sort the frequency of the values to know if the text can be encripted
+cont=21;                                %The first letter that we are going to 
+wdog=0;                                 %This will be the bit that will let us know if the text is well wrote
+exit=0;                                 %the exit bit let us know when wehave finished with all the consonants
+cota=20;                                %This variable will be removed in the next patch
+if((Valid(21)==0)&&(Valid(22)<0))       %first, if we only have 1 consonant is unencryptable, but not if we dont have consonants
+    wdog=wdog+1;                        
+end
+if((Valid((cota))>0)&&(exit==0))        %we check if we dont have unfair pairs
+    cota=cont-1;
+    if(Valid(cont)==Valid(cota))
+        wdog=wdog+1;                    %if its true the text cannot be encrypted
+    end
+    cont=cont-2;
+    if(cont==-1)
+        exit=1;
+    end    
+end
+if(wdog==0)
+    cont=-10;                           %We will order the consonants as we did with the vocals
+    while(cont<1)
+        switch (max(con))
+            case b
+                b=cont;
+            case c
+                c=cont;
+            case d
+                d=cont;
+            case f
+                f=cont;
+            case g
+                g=cont;
+            case h
+                h=cont;
+            case j
+                j=cont;
+            case k
+                k=cont;
+            case l
+                l=cont;
+            case m
+                m=cont;
+            case n
+                n=cont;
+            case e
+                e=cont;
+            case p
+                p=cont;
+            case q
+                q=cont;
+            case r
+                r=cont;
+            case s
+                s=cont;
+            case t
+                t=cont;
+            case v
+                v=cont;
+            case w
+                w=cont;
+            case x
+                x=cont;
+            case y
+                y=cont;
+            case z
+                z=cont;
+        end
+        con=[b c d f g h j k l m n e p q r s t v w x y z];
+            switch (max(con))
+            case b
+                b=cont;
+            case c
+                c=cont;
+            case d
+                d=cont;
+            case f
+                f=cont;
+            case g
+                g=cont;
+            case h
+                h=cont;
+            case j
+                j=cont;
+            case k
+                k=cont;
+            case l
+                l=cont;
+            case m
+                m=cont;
+            case n
+                n=cont;
+            case e
+                e=cont;
+            case p
+                p=cont;
+            case q
+                q=cont;
+            case r
+                r=cont;
+            case s
+                s=cont;
+            case t
+                t=cont;
+            case v
+                v=cont;
+            case w
+                w=cont;
+            case x
+                x=cont;
+            case y
+                y=cont;
+            case z
+                z=cont;
+        end
+        con=[b c d f g h j k l m n e p q r s t v w x y z];
+        A=find(con==cont);              %we print the consonant pairs
+        Res=[cons(A(1)),'->',cons(A(2))];
+        disp(Res);
+        cont=cont+1;
+    end
+    A=find(voc==-2);                    %In the end we print the vocals pairs
+    Res=[voca(A(1)),'->',voca(A(2))];
+    disp(Res);
+    A=find(voc==-1);
+    Res=[voca(A(1)),'->',voca(A(2))];
+    disp(Res);
+    A=find(voc==0);
+    disp(voca(A));
+else
+    disp('your text cannot be encrypted');
+end
